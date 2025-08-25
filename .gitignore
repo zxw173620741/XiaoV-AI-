@@ -25,7 +25,6 @@ MANIFEST
 venv/
 env/
 ENV/
-.env/
 .venv/
 
 # ===== IDE 文件 =====
