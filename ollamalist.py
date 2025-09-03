@@ -1,7 +1,8 @@
 import requests
-
-# 远程 Ollama 服务地址（修改为你远程服务器的 IP 或域名）
-OLLAMA_HOST = "http://192.168.201.11:11434"  
+from dotenv import load_dotenv
+import os
+load_dotenv()
+OLLAMA_HOST = os.getenv("OLLAMA_URL")
 
 def list_models():
     """获取远程 Ollama 上的模型列表"""
