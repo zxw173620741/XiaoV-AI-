@@ -20,10 +20,10 @@ from dotenv import load_dotenv
 load_dotenv()
 api_url = os.getenv("OLLAMA_URL")
 class AgentState(TypedDict):
-    problem:str
-    reasons:List[str]
-    knowledge:Dict[str,Dict[str,str]]
-    model_advice:Dict[str,str]
+    problem: str
+    reasons: List[str]
+    knowledge: Dict[str, dict[str,str]]
+    model_advice: Dict[str, str]
 
 class VisualLogger:
     @staticmethod
@@ -172,15 +172,15 @@ def process_reason(state: AgentState, config: RunnableConfig) -> AgentState:
     print(f"\n{'=' * 50}")
     print(f"开始分析异常指标: {state['reasons'][0]}")
     reason=state['reasons'][0]
-    knowledge=query_knowledge_base(state['problem'],reason)
-    model_output=generate_model_advice(state['problem'],reason,knowledge)
+    knowledge = query_knowledge_base(state["problem"], reason)
+    model_output = generate_model_advice(state["problem"], reason, knowledge)
     new_state={
-        "problem":state['problem'],
-        "reasons":state['reasons'][1:],
-        "knowledge":{**state["knowledge"],reason:knowledge},
-        "model_advice":{**state['model_advice'],reason:model_output ['advice']}
+        'problem':state['problem'],
+        'reasons':state['reasons'][1:],
+        'knowledge':{**state['knowledge'],reason:knowledge},
+        'model_advice':{**state['model_advice'],reason:model_output['advice']}
     }
-    print(f"针对异常指标{reason}分析完成")
+    print(f"异常指标{reason}已经分析完成")
     return new_state
 
 def should_continue(state: AgentState) -> str:
